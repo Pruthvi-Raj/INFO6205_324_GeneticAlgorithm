@@ -11,7 +11,7 @@ import knapsack.Population;
 
 /**
  *
- * @author aravind
+ * @author pruth
  */
 public class Evaluation {
     

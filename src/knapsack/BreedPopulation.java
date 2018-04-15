@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  *
- * @author aravind
+ * @author pruth
  */
 public class BreedPopulation {
     
@@ -22,6 +22,19 @@ public class BreedPopulation {
     private Evaluation eval;
     private int crossover_count = 0;
     private int clone_count = 0;
+    private int new_evolved_count = 0;
+
+    public int getNew_evolved_count() {
+        return new_evolved_count;
+    }
+
+    public int getCrossover_count() {
+        return crossover_count;
+    }
+
+    public int getClone_count() {
+        return clone_count;
+    }
     
     protected ArrayList<String> breedNewPopulation(Evaluation eval, ArrayList<Double> fitness, Double prob_crossover, int population_size, 
             int number_of_items, ArrayList<String> population, ArrayList<String> best_solution_of_generation, int generation_counter) {
@@ -40,11 +53,11 @@ public class BreedPopulation {
             this.breed_population.add(best_solution_of_generation.get(generation_counter - 1));
         }
 
-        // Get positions of pair of genes for breeding
+        //positions of pair of genes for breeding
         gene_1 = selectGene(eval,fitness, population);
         gene_2 = selectGene(eval,fitness, population);
         
-        // Crossover or cloning
+        // Crossover genes
         crossoverGenes(gene_1, gene_2, prob_crossover, number_of_items, population);
         
         return this.breed_population;
@@ -54,8 +67,7 @@ public class BreedPopulation {
         
         // Generate random number between 0 and total_fitness_of_generation
         double rand = Math.random() * evalBreedPopulation(population);
-        
-        // Use random number to select gene based on fitness level
+       
         for(int i = 0; i < population_size; i++) {
             if(rand <= fitness.get(i)) {
                 return i;
@@ -63,48 +75,38 @@ public class BreedPopulation {
             rand = rand - fitness.get(i);
         }
 
-	// Not reachable; default return value
 	return 0;
     }
     
     private void crossoverGenes(int gene_1, int gene_2,Double prob_crossover, int number_of_items, ArrayList<String> population) {
       
-        // Strings to hold new genes
         String new_gene_1;
         String new_gene_2;
-
-        // Decide if crossover is to be used
+        
+        //CrossOver usage criteria
         double rand_crossover = Math.random();
         if(rand_crossover <= prob_crossover) {
-            // Perform crossover
+           
             crossover_count = crossover_count + 1;
             Random generator = new Random(); 
             int cross_point = generator.nextInt(number_of_items-1) + 1;
 
-            // Cross genes at random spot in strings
+            // Selecting random spots in string and performing cross over
             new_gene_1 = population.get(gene_1).substring(0, cross_point) + population.get(gene_2).substring(cross_point);
             new_gene_2 = population.get(gene_2).substring(0, cross_point) + population.get(gene_1).substring(cross_point);
 
-            // Add new genes to breed_population
+            // Add new genes
             this.breed_population.add(new_gene_1);
             this.breed_population.add(new_gene_2);
         }
         else {
-            // Otherwise, perform cloning
-            clone_count = clone_count + 1;
+            //perform cloning
+            this.clone_count = this.clone_count + 1;
             this.breed_population.add(population.get(gene_1));
             this.breed_population.add(population.get(gene_2));
         }
-
-        // Check if mutation is to be performed
-        //mutateGene();
+        new_evolved_count = clone_count + crossover_count;
     }
-    
-    protected int cloning(){
-        return clone_count;
-    }
-    
-    //Evaluation eval = new Evaluation(population_size, breed_population, clone_count, fitness, fitness, total_fitness_of_generation);
     
     protected Double evalBreedPopulation(ArrayList<String> population) {
         total_fitness_of_generation = 0;

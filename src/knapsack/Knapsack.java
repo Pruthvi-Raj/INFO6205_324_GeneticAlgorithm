@@ -32,13 +32,10 @@ public class Knapsack {
     private int generation_counter;
 
 
-    /**
-     * Main method
-     */
+    
     public static void main(String[] args) {
 
-        // Check for command line argument output_filename
-        // If filename present, redirect all System.out to file
+        
         if(args.length == 1) {
             try {
                 File file_name = new File(args[0]);
@@ -53,19 +50,12 @@ public class Knapsack {
                 System.out.println("Problem with output file");
             }
         }
-
-        // Construct KnapsackProblem instance and pass control
+     
         Knapsack knap = new Knapsack();
-
-        // Construct graph of mean fitness by generation
-        //SimpleGraph graph = new SimpleGraph(knap.mean_fitness_of_generation, "Mean Fitness by Generation");
-
+     
     }
 
-
-    /**  
-     * Default constructor
-     */
+   
     public Knapsack() {
         this.mean_fitness_of_generation = new ArrayList<>();
         this.value_of_items = new ArrayList<>();
@@ -82,14 +72,11 @@ public class Knapsack {
     }
 
 
-    /**
-     * Controls knapsack problem logic and creates first generation
-     */
     public void buildKnapsackProblem() {
 
-        this.generation_counter = 1;
-        // Generate initial random population (first generation)
+        this.generation_counter = 0;
         
+        // Generate initial random population (first generation)
         Population pop = new Population(population_size, number_of_items);
         
         population = pop.makePopulation(); // Generating intial population i.e., is first generation
@@ -182,52 +169,42 @@ public class Knapsack {
             }
 
             // Output population
-            System.out.println("\nGeneration " + (i + 1) + ":");
+            System.out.println("\nGeneration " + (i+1) + ":");
             if((i + 1) < 10) {
                 System.out.println("=============");
-            }
-            if((i + 1) >= 10) {
-                System.out.println("==============");
-            }
-            if((i + 1) >= 100) {
-                System.out.println("===============");
             }
             System.out.println("Population:");
             for(int l = 0; l < this.population_size; l++) {
                 System.out.println((l + 1) + " - " + this.population.get(l));
             }
 
-            // Output fitness summary
+            //fitness summary
             System.out.println("\nFitness:");
             for(int m = 0; m < this.population_size; m++) {
                System.out.println((m + 1) + " - " + eval.evalBreedFitness().get(m));
             } 
 
-            // Clear breed_population
             this.breed_population.clear();
-            breedNew = new BreedPopulation();
+            //breedNew = new BreedPopulation();
 
-            // Find best solution of generation
-            this.best_solution_of_generation.add(this.population.get(eval.getBestSolution()));
-
-            // Output best solution of generation
+            //best solution of generation
+            this.best_solution_of_generation.add(this.population.get(eval.getBestSolution()));          
             System.out.println("\nBest solution of generation " + (i + 1) + ": " + this.best_solution_of_generation.get(i));
 
-            // Find mean solution of generation
+            //mean solution of generation
 	    this.mean_fitness_of_generation.add(eval.getMeanFitness(fitness));
-
-	    // Output mean solution of generation
 	    System.out.println("Mean fitness of generation: " + this.mean_fitness_of_generation.get(i));
 
-            // Compute fitness of best solution of generation
+            //fitness of best solution of generation
             this.best_fitness_of_generation.add(eval.evalGene(population.get(eval.getBestSolution())));
-
-            // Output best fitness of generation
             System.out.println("Fitness score of best solution of generation " + (i + 1) + ": " + this.best_fitness_of_generation.get(i));
 
             // Output crossover/cloning summary
-            //System.out.println("Crossover occurred " + this.crossover_count + " times");
-            System.out.println("Cloning occurred " + breedNew.cloning() + " times");
+            
+            System.out.println("Clonning occurred " + breedNew.getClone_count() + " times");
+            System.out.println("Crossover occurred " + breedNew.getCrossover_count() + " times");
+            System.out.println("Newly added to the  Generation "+ (i+1)+" is "+ breedNew.getNew_evolved_count());
+            System.out.println("Discarded from the generation "+ (population_size - breedNew.getNew_evolved_count()));
             if(this.mutation == false) {
                 System.out.println("Mutation did not occur");
             }
@@ -263,6 +240,8 @@ public class Knapsack {
                 System.out.print((y + 1) + " ");
             }
         }
+        System.out.println("Best generation is " + best_gen);
+        System.out.println("Best fitness is " + best_fitness);
     }
 
 

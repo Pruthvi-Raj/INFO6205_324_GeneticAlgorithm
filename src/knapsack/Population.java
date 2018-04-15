@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package knapsack;
 
 import java.util.ArrayList;
-
 /**
  *
- * @author aravind
+ * @author pruth
  */
 public class Population {
     private ArrayList<String> population = new ArrayList<String>();
@@ -23,10 +17,8 @@ public class Population {
     
     protected ArrayList<String> makePopulation() {
         for(int i = 0; i < population_size; i++) {
-            // Calls makeGene() once for each element position
             population.add(makeGene());      
         }
-        
         System.out.println("\nInitial Generation:");
         System.out.println("===================");
         System.out.println("Population:");
@@ -41,10 +33,8 @@ public class Population {
         // Stringbuilder builds gene, one chromosome (1 or 0) at a time
         StringBuilder gene = new StringBuilder(number_of_items);
 
-        // Each chromosome
         char c;
 
-        // Loop creating gene
         for(int i = 0; i < number_of_items; i++) {
             c = '0';
             double rnd = Math.random(); 
