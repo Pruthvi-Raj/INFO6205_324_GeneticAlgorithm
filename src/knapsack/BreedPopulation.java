@@ -79,7 +79,7 @@ public class BreedPopulation {
             // Perform crossover
             crossover_count = crossover_count + 1;
             Random generator = new Random(); 
-            int cross_point = generator.nextInt(number_of_items) + 1;
+            int cross_point = generator.nextInt(number_of_items-1) + 1;
 
             // Cross genes at random spot in strings
             new_gene_1 = population.get(gene_1).substring(0, cross_point) + population.get(gene_2).substring(cross_point);
