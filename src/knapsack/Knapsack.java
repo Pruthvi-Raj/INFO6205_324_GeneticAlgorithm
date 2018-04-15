@@ -29,6 +29,7 @@ public class Knapsack {
     private ArrayList<String> population;
     private ArrayList<String> breed_population = new ArrayList<>();
     private ArrayList<String> best_solution_of_generation = new ArrayList<>();
+    private int generation_counter;
 
 
     /**
@@ -86,6 +87,7 @@ public class Knapsack {
      */
     public void buildKnapsackProblem() {
 
+        this.generation_counter = 1;
         // Generate initial random population (first generation)
         
         Population pop = new Population(population_size, number_of_items);
@@ -124,7 +126,7 @@ public class Knapsack {
 
         // If maximum_generations > 1, breed further generations
         if(this.maximum_generations > 1) {
-            MakeFurtherGenerations makeFGen = new MakeFurtherGenerations();
+            //MakeFurtherGenerations makeFGen = new MakeFurtherGenerations();
             makeFurtherGenerations(eval);
         }
 
@@ -138,7 +140,9 @@ public class Knapsack {
 
         // Breeding loops maximum_generation number of times at most
         for(int i = 1; i < this.maximum_generations; i++) {
-
+            // Increase generation_counter
+            this.generation_counter = this.generation_counter + 1;
+            
 	    // Check for stopping criterion
 	    if((this.maximum_generations > 4) && (i > 4)) {
 
@@ -156,21 +160,21 @@ public class Knapsack {
 	    }
 
             // Reset some counters
-//            this.crossover_count = 0;
-           // this.clone_count = 0;
+            //this.crossover_count = 0;
+            this.clone_count = 0;
             this.mutation = false;
           
             BreedPopulation breedNew = new BreedPopulation();
             // Breed population
             for(int j = 0; j < this.population_size / 2; j++) {
-                breed_population = breedNew.breedNewPopulation(eval, fitness, prob_crossover, number_of_items, population);
+               breed_population = breedNew.breedNewPopulation(eval, fitness, prob_crossover, population_size, number_of_items, population, this.best_solution_of_generation, this.generation_counter);
             }
    
             // Clear fitness values of previous generation
             this.fitness.clear();
-
+            eval.evalPopulation();
             // Evaluate fitness of breed population members
-            total_fitness_of_generation = eval.evalBreedPopulation();
+            total_fitness_of_generation = breedNew.evalBreedPopulation(breed_population);
 
             // Copy breed_population to population
             for(int k = 0; k < this.population_size; k++) {
@@ -201,6 +205,7 @@ public class Knapsack {
 
             // Clear breed_population
             this.breed_population.clear();
+            breedNew = new BreedPopulation();
 
             // Find best solution of generation
             this.best_solution_of_generation.add(this.population.get(eval.getBestSolution()));

@@ -27,24 +27,25 @@ public class Evaluation {
     private Double knapsack_capacity;
     
     
-    public Evaluation(int population_size,ArrayList<String> pop,int number_of_items,
+    public Evaluation(int population_size,ArrayList<String> population,int number_of_items,
             ArrayList<Double> weight_of_items, ArrayList<Double> value_of_items,Double knapsack_capacity){
         this.population_size = population_size;
-        this.population = pop;
+        this.population = population;
         this.number_of_items = number_of_items;
         this.weight_of_items = weight_of_items;
         this.value_of_items = value_of_items;
         this.knapsack_capacity = knapsack_capacity;
     }
     
-     protected ArrayList<Double> evalPopulation() {       
+     protected ArrayList<Double> evalPopulation() { 
+        this.fitness.clear();
         total_fitness_of_generation = 0;
         for(int i = 0; i < population_size; i++) {
             double temp_fitness = evalGene(population.get(i));
-            fitness.add(temp_fitness);
+            this.fitness.add(temp_fitness);
             total_fitness_of_generation = total_fitness_of_generation + temp_fitness;
         }
-        return fitness;
+        return this.fitness;
     }
     
      protected double evalGene(String gene) {
@@ -99,7 +100,7 @@ public class Evaluation {
    	double mean_fitness = 0;
         this.fitness = fit;
         for(int i = 0; i < population_size; i++) {
-	    total_fitness = total_fitness + fitness.get(i);
+	    total_fitness = total_fitness + this.fitness.get(i);
         }
 	mean_fitness = total_fitness / population_size;
 	return mean_fitness;
@@ -107,17 +108,17 @@ public class Evaluation {
        
       
           
-     protected Double evalBreedPopulation() {
-        total_fitness_of_generation = 0;
-        for(int i = 0; i < population_size; i++) {
-            double temp_fitness = evalGene(breed_population.get(i));
-            fitness.add(temp_fitness);
-            total_fitness_of_generation = total_fitness_of_generation + temp_fitness;
-        }
-        return total_fitness_of_generation;
-    }
+//     protected Double evalBreedPopulation(ArrayList<String> breed_population) {
+//        total_fitness_of_generation = 0;
+//        for(int i = 0; i < population_size/2; i++) {
+//            double temp_fitness = evalGene(breed_population.get(i));
+//            fitness.add(temp_fitness);
+//            total_fitness_of_generation = total_fitness_of_generation + temp_fitness;
+//        }
+//        return total_fitness_of_generation;
+//    }
      
      protected ArrayList<Double> evalBreedFitness(){
-         return fitness;
+         return this.fitness;
      }
 }
