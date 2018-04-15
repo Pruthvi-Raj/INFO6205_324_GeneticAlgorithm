@@ -1,3 +1,4 @@
 # Knapsack-GeneticAlgorithm
 
-1. Solving Knapsack using Genetic Algorithm
+#Problem statement
+Solving Knapsack problem using Genetic Algorithm
