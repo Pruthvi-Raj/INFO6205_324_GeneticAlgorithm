@@ -21,7 +21,7 @@ In the process of making the new population in the new generation we cross over 
 
 And finally we get the resultant list of best fitness values from all the generations and of these the best resultant fitness is obtained.
 
-![alt text](https://raw.githubusercontent.com/Pruthvi-Raj/INFO6205_324_GeneticAlgorithm/Output.png)
+![Output Result](https://raw.githubusercontent.com/Pruthvi-Raj/INFO6205_324_GeneticAlgorithm/Output.png)
 
 # Team Mates:
 1. Pruthvi Raj Muddapuram
