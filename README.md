@@ -21,3 +21,6 @@ In the process of making the new population in the new generation we cross over 
 
 And finally we get the resultant list of best fitness values from all the generations and of these the best resultant fitness is obtained.
 
+Team Mates:
+1. Pruthvi Raj Muddapuram
+2. Vineeth Kashyap Kosiganti
