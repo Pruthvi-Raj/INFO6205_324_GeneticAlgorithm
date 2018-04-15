@@ -23,6 +23,8 @@ And finally we get the resultant list of best fitness values from all the genera
 
 ![Output Result](https://github.com/Pruthvi-Raj/INFO6205_324_GeneticAlgorithm/Output.png)
 
+
+
 # Team Mates:
 1. Pruthvi Raj Muddapuram
 2. Vineeth Kashyap Kosiganti
