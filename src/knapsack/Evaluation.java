@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package knapsack;
 
 import java.util.ArrayList;
@@ -58,8 +53,7 @@ public class Evaluation {
         // Get total_weight associated with items selected by this gene
         for(int j = 0; j < number_of_items; j ++) {
             c = gene.charAt(j);
-            // If chromosome is a '1', add corresponding item position's
-            // weight to total weight
+            // If chromosome is a '1', add corresponding item position's weight to total weight
             if(c == '1') {
                 total_weight = total_weight + weight_of_items.get(j);
                 total_value = total_value + value_of_items.get(j);
@@ -68,19 +62,11 @@ public class Evaluation {
         // Check if gene's total weight is less than knapsack capacity
         difference = knapsack_capacity - total_weight;
         if(difference >= 0) {
-            // This is acceptable; calculate a fitness_value
-            // Otherwise, fitness_value remains 0 (default), since knapsack
-            // cannot hold all items selected by gene
-            // Fitness value is simply total value of acceptable permutation,
-            // and for unacceptable permutation is set to '0'
             fitness_value = total_value;
         }
-        
-        // Return fitness value
         return fitness_value;
     }
-     
-     
+      
      protected int getBestSolution() {
         int best_position = 0;
         double this_fitness = 0;
@@ -106,18 +92,6 @@ public class Evaluation {
 	return mean_fitness;
     }
        
-      
-          
-//     protected Double evalBreedPopulation(ArrayList<String> breed_population) {
-//        total_fitness_of_generation = 0;
-//        for(int i = 0; i < population_size/2; i++) {
-//            double temp_fitness = evalGene(breed_population.get(i));
-//            fitness.add(temp_fitness);
-//            total_fitness_of_generation = total_fitness_of_generation + temp_fitness;
-//        }
-//        return total_fitness_of_generation;
-//    }
-     
      protected ArrayList<Double> evalBreedFitness(){
          return this.fitness;
      }

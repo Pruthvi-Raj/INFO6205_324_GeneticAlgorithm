@@ -34,21 +34,17 @@ public class Population {
         StringBuilder gene = new StringBuilder(number_of_items);
 
         char c;
-
+ 
         for(int i = 0; i < number_of_items; i++) {
             c = '0';
             double rnd = Math.random(); 
-            // If random number is greater than 0.5, chromosome is '1'
-            // If random number is less than 0.5, chromosome is '0'
+            // If random number is greater than 0.5, chromosome is '1' and If random number is less than 0.5, chromosome is '0'
             if(rnd > 0.5) {
                 c = '1';
             }
-            // Append chromosome to gene
             gene.append(c);
         }
         // Stringbuilder object to string; return
         return gene.toString();
-    }
-    
-    
+    }   
 }

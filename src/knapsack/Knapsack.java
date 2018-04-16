@@ -120,9 +120,6 @@ public class Knapsack {
     }
 
 
-    /**
-     * Makes further generations beyond first, if necessary
-     */
     private void makeFurtherGenerations(Evaluation eval) {
 
         // Breeding loops maximum_generation number of times at most
@@ -146,10 +143,9 @@ public class Knapsack {
 		}
 	    }
 
-            // Reset some counters
-            //this.crossover_count = 0;
+            
             this.clone_count = 0;
-            this.mutation = false;
+            
           
             BreedPopulation breedNew = new BreedPopulation();
             // Breed population
@@ -205,18 +201,9 @@ public class Knapsack {
             System.out.println("Crossover occurred " + breedNew.getCrossover_count() + " times");
             System.out.println("Newly added to the  Generation "+ (i+1)+" is "+ breedNew.getNew_evolved_count());
             System.out.println("Discarded from the generation "+ (population_size - breedNew.getNew_evolved_count()));
-            if(this.mutation == false) {
-                System.out.println("Mutation did not occur");
-            }
-            if(this.mutation == true) {
-                System.out.println("Mutation did occur");
-            }
         }
     }
 
-    /**
-     * Output KnapsackProblem summary
-     */
     private void showOptimalList() {
 
         // Output optimal list of items
@@ -245,16 +232,12 @@ public class Knapsack {
     }
 
 
-     // Collects user input to be used as parameters for knapsack problem
     private void getInput() {
 
         String input;
-
-        // Number of items
         System.out.println("Enter the number of items: ");
         Scanner sc = new Scanner(System.in);
         input = sc.nextLine();
-        
         if (isInteger(input)) {
             number_of_items = Integer.parseInt(input);
         }
@@ -285,8 +268,7 @@ public class Knapsack {
                 System.exit(1);
             }            
         }
-
-        // Capacity of knapsack
+        
         System.out.println("Enter the knapsack capacity: ");
         input = sc.nextLine();
         if (isInteger(input)) {
@@ -297,7 +279,6 @@ public class Knapsack {
             System.exit(1);
         }
 
-        // Population size
         System.out.println("Enter the population size: ");
         input = sc.nextLine();
         if (isInteger(input)) {
@@ -308,7 +289,6 @@ public class Knapsack {
             System.exit(1);
         }
 
-        // Maximum number of generations
         System.out.println("Enter the maximum number of generations: ");
         input = sc.nextLine();
         if (isInteger(input)) {
@@ -319,22 +299,10 @@ public class Knapsack {
             System.exit(1);
         }
 
-        // Crossover probability
         System.out.println("Enter the crossover probability: ");
         input = sc.nextLine();
         if (isDouble(input)) {
             prob_crossover = Double.parseDouble(input);
-        }
-        else {
-            System.out.println("Not a number. Please try again.");
-            System.exit(1);
-        }
-
-        // Mutation probability
-        System.out.println("Enter the mutation probability: ");
-        input = sc.nextLine();
-        if (isDouble(input)) {
-            prob_mutation = Double.parseDouble(input);
         }
         else {
             System.out.println("Not a number. Please try again.");
